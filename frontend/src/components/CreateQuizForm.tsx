@@ -29,11 +29,11 @@ const CreateQuizForm = () => {
     setQuestions([...questions, createDefaultQuestion(questions.length)]);
   };
 
-  const removeQuestion = (index: number) => {
+  const removeQuestion = (questionIndex: number) => {
     setQuestions(
       questions
-        .filter((_, i) => i !== index)
-        .map((q, i) => ({ ...q, order: i }))
+        .filter((_, index) => index !== questionIndex)
+        .map((question, index) => ({ ...question, order: index }))
     );
   };
 
@@ -53,7 +53,10 @@ const CreateQuizForm = () => {
 
     createQuiz.mutate({
       title: title,
-      questions: questions.map((q, i) => ({ ...q, order: i + 1 })),
+      questions: questions.map((question, index) => ({
+        ...question,
+        order: index + 1,
+      })),
     });
   };
 
