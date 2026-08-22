@@ -1,4 +1,4 @@
-import { Injectable, Delete } from '@nestjs/common';
+import { Injectable, Delete, NotFoundException } from '@nestjs/common';
 import { CreateQuizDto } from '../dto/quizzes.dto.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
 
@@ -69,11 +69,48 @@ export class QuizzesService {
     }))
   }
 
-  getQuizById(quizId: string) {
+  async getQuizById(quizId: string) {
+    const quizInfo = await this.prisma.quiz.findUnique({
+      where: {
+        id: quizId
+      },
+      select: {
+        id: true,
+        title: true,
+        createdAt: true,
+        questions: {
+          select: {
+            id: true,
+            title: true,
+            type: true,
+            order: true,
+            options: {
+              select: {
+                id: true,
+                text: true,
+                isCorrect: true,
+                order: true
+              }
+            }
+          }
+        }
+      }
+    })
 
+    if (!quizInfo) {
+      throw new NotFoundException("Quiz with this ID is not found!")
+    }
+
+    return quizInfo
   }
 
-  deleteQuiz(quizId: string) {
+  async deleteQuiz(quizId: string) {
+    await this.getQuizById(quizId)
 
+    await this.prisma.quiz.delete({
+      where: {
+        id: quizId
+      }
+    })
   }
 }

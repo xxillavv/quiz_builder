@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
 import { QuizzesService } from './quizzes.service.js';
 import { CreateQuizDto } from '../dto/quizzes.dto.js';
 
@@ -22,6 +22,7 @@ export class QuizzesController {
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   deleteQuiz(@Param('id') quizId: string) {
     return this.quizzesService.deleteQuiz(quizId)
   }
