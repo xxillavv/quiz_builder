@@ -1,4 +1,4 @@
-import { TCreateQuizInput } from "@/types";
+import { TCreateQuizInput, TGetQuizzesResponse } from "@/types";
 import axios from "axios";
 
 export const createQuiz = async (body: TCreateQuizInput) => {
@@ -7,7 +7,7 @@ export const createQuiz = async (body: TCreateQuizInput) => {
   return response.data
 }
 
-export const getAllQuizzes = async () => {
+export const getAllQuizzes = async (): Promise<TGetQuizzesResponse[]> => {
   const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/quizzes`)
 
   return response.data

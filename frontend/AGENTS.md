@@ -1,3 +1,32 @@
+* **Minimize Client Components (`'use client'`):**
+  * NEVER mark the entire page (`page.tsx`) as `'use client'` unless strictly necessary.
+  * Keep pages as **Server Components** by default for data fetching, and performance.
+  * Push `'use client'` directives down to the leaf components (e.g., small interactive forms, buttons, inputs).
+* **Component Granularity & Decomposition:**
+  * DO NOT create monolithic components larger than **100-150 lines of code**.
+  * Always split complex UIs into smaller, reusable sub-components inside a dedicated `components/` folder.
+  * Keep presentation (UI) clearly separated from state management and business logic.
+
+* **Tailwind CSS Only:**
+  * Use standard Tailwind CSS classes. Avoid arbitrary inline values (e.g., `h-[347px]`) when standard utility scale exists.
+  * DO NOT write custom CSS files or inline `style={{ ... }}` objects.
+* **UX & States:**
+  * Every interactive component MUST include standard states: `hover`, `active`, `focus-visible`, and `disabled`.
+  * Always handle `isLoading` (skeletons/spinners) and `empty` states for lists or data displays.
+
+* **Strict Typing:**
+  * DO NOT use `any` or `unknown` casts. Import types from `@/types` or local interfaces.
+  * Always type component props explicitly using `interface Props` or `type Props`.
+* **No Side Effects in Layouts:**
+  * Keep data fetching and mutation calls localized to custom hooks or server actions — never perform inline fetch calls inside renders.
+
+
+
+
+
+
+### Tech Tasks
+
 # Full-Stack JS engineer test assessment - the **Quiz Builder**
 
 ## **Overview**
@@ -113,3 +142,5 @@ quiz-builder/
 - Working local project with functioning API and UI
 - Sample quiz or seed script (optional)
 - Clean, readable, and modular code
+
+
