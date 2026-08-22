@@ -5,7 +5,6 @@ import {
   IsEnum,
   IsInt,
   IsNotEmpty,
-  IsOptional,
   IsString,
   ValidateNested,
 } from 'class-validator';
@@ -17,12 +16,10 @@ export class CreateQuestionOptionDto {
   text!: string;
 
   @IsBoolean()
-  @IsOptional()
-  isCorrect?: boolean;
+  isCorrect!: boolean;
 
   @IsInt()
-  @IsOptional()
-  order?: number;
+  order!: number;
 }
 
 export class CreateQuestionDto {
@@ -34,14 +31,12 @@ export class CreateQuestionDto {
   type!: QuestionType;
 
   @IsInt()
-  @IsOptional()
-  order?: number;
+  order!: number;
 
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateQuestionOptionDto)
-  @IsOptional()
-  options?: CreateQuestionOptionDto[];
+  options!: CreateQuestionOptionDto[];
 }
 
 export class CreateQuizDto {
